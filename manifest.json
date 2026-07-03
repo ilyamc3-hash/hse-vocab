@@ -1,0 +1,15 @@
+{
+  "name": "HSE Vocab — тренажёр словаря",
+  "short_name": "HSE Vocab",
+  "description": "Личный тренажёр английского словаря с интервальным повторением",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16191c",
+  "theme_color": "#16191c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
