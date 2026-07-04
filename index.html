@@ -53,37 +53,94 @@ const C = {
 
 /* ---------- Word bank (seed data) ---------- */
 const SEED_WORDS = [
-  ["Occupational safety", "Охрана труда"], ["Hazard", "Опасность (источник)"], ["Risk", "Риск"],
-  ["Risk assessment", "Оценка риска"], ["Near miss", "Едва не случившийся инцидент"], ["Incident", "Инцидент"],
-  ["Root cause", "Первопричина"], ["Corrective action", "Корректирующее действие"], ["Preventive measure", "Превентивная мера"],
-  ["Compliance", "Соответствие требованиям"], ["Regulation", "Норматив, регламент"], ["Permit to work", "Наряд-допуск"],
-  ["Confined space", "Замкнутое пространство"], ["Gas-hazardous work", "Газоопасные работы"], ["Lifting operations", "Грузоподъёмные работы"],
-  ["Pressure equipment", "Оборудование под давлением"], ["Personal protective equipment", "Средства индивидуальной защиты"],
-  ["Respiratory protection", "Защита органов дыхания"], ["Fall protection", "Защита от падения с высоты"],
-  ["Lockout/tagout", "Блокировка/маркировка оборудования"], ["Emergency response", "Реагирование на ЧС"], ["Evacuation", "Эвакуация"],
-  ["Fire safety", "Пожарная безопасность"], ["Explosion", "Взрыв"], ["Combustible", "Горючий"],
-  ["Flammable", "Легковоспламеняющийся"], ["Toxic substance", "Токсичное вещество"], ["Exposure limit", "Предельно допустимый уровень"],
-  ["Ventilation", "Вентиляция"], ["Gas leak", "Утечка газа"], ["Spill", "Разлив жидкости"], ["Contamination", "Загрязнение"],
-  ["Inspection", "Инспекция, осмотр"], ["Audit", "Аудит"], ["Checklist", "Контрольный список"], ["Deviation", "Отклонение"],
-  ["Non-conformance", "Несоответствие"], ["Safety culture", "Культура безопасности"], ["Behavior-based safety", "Поведенческая безопасность"],
-  ["Toolbox talk", "Инструктаж перед работой"], ["Induction training", "Вводный инструктаж"], ["Competence", "Компетентность"],
-  ["Certification", "Сертификация"], ["Accident investigation", "Расследование несчастного случая"],
-  ["Lost time injury", "Травма с потерей рабочего времени"], ["First aid", "Первая помощь"],
-  ["Occupational illness", "Профессиональное заболевание"], ["Environmental impact", "Воздействие на окружающую среду"],
-  ["Waste management", "Управление отходами"], ["Sustainability", "Устойчивое развитие"], ["Stakeholder", "Заинтересованная сторона"],
-  ["Legislation", "Законодательство"], ["Enforcement", "Обеспечение исполнения"], ["Duty of care", "Обязанность проявлять заботу"],
-  ["Safety data sheet", "Паспорт безопасности вещества"], ["Hierarchy of control", "Иерархия мер контроля"],
-  ["Residual risk", "Остаточный риск"], ["Working at height", "Работа на высоте"], ["Excavation", "Земляные работы"],
-  ["Electrical safety", "Электробезопасность"], ["Monitoring", "Мониторинг"], ["Surveillance", "Надзор, слежение"],
-  ["Verification", "Верификация"], ["Validation", "Валидация"], ["Accountability", "Подотчётность"],
-  ["Liability", "Юридическая ответственность"], ["Whistleblowing", "Информирование о нарушениях"],
-  ["Due diligence", "Должная осмотрительность"], ["Fire hazard", "Пожароопасность"], ["Ignition source", "Источник воспламенения"],
-  ["Fire triangle", "Треугольник пожара"], ["Fire extinguisher", "Огнетушитель"], ["Fire alarm", "Пожарная сигнализация"],
-  ["Smoke detector", "Датчик дыма"], ["Fire drill", "Учебная эвакуация"], ["Fire compartment", "Противопожарный отсек"],
-  ["Means of escape", "Пути эвакуации"], ["Assembly point", "Место сбора"], ["Scaffold", "Строительные леса"],
-  ["Guardrail", "Ограждение"], ["Anchor point", "Точка анкерного крепления"], ["Harness", "Страховочная привязь"],
-  ["Fall arrest system", "Система удержания от падения"], ["Ladder", "Приставная лестница"], ["Working platform", "Рабочая площадка"],
-  ["Edge protection", "Защита краёв"], ["Restraint system", "Система ограничения перемещения"], ["Rescue plan", "План спасения"],
+  ["Occupational safety", "Охрана труда", "Occupational safety is a top priority at every worksite."],
+  ["Hazard", "Опасность (источник)", "Report any hazard you notice immediately to your supervisor."],
+  ["Risk", "Риск", "The risk of falling increases without proper guardrails."],
+  ["Risk assessment", "Оценка риска", "We completed a risk assessment before starting the job."],
+  ["Near miss", "Едва не случившийся инцидент", "A near miss was reported after the crane almost tipped over."],
+  ["Incident", "Инцидент", "The incident was investigated within twenty-four hours."],
+  ["Root cause", "Первопричина", "Poor training was identified as the root cause of the accident."],
+  ["Corrective action", "Корректирующее действие", "Management approved a corrective action to fix the faulty valve."],
+  ["Preventive measure", "Превентивная мера", "Wearing gloves is a simple preventive measure against cuts."],
+  ["Compliance", "Соответствие требованиям", "The site passed the inspection thanks to full compliance with regulations."],
+  ["Regulation", "Норматив, регламент", "New regulation requires hard hats on all construction sites."],
+  ["Permit to work", "Наряд-допуск", "No one can enter the tank without a valid permit to work."],
+  ["Confined space", "Замкнутое пространство", "Entering a confined space requires special training and equipment."],
+  ["Gas-hazardous work", "Газоопасные работы", "Gas-hazardous work must be supervised by a certified officer."],
+  ["Lifting operations", "Грузоподъёмные работы", "Lifting operations were suspended due to strong wind."],
+  ["Pressure equipment", "Оборудование под давлением", "The pressure equipment is inspected every six months."],
+  ["Personal protective equipment", "Средства индивидуальной защиты", "Personal protective equipment is mandatory in this area."],
+  ["Respiratory protection", "Защита органов дыхания", "Workers need respiratory protection when handling toxic fumes."],
+  ["Fall protection", "Защита от падения с высоты", "Fall protection must be used above two meters."],
+  ["Lockout/tagout", "Блокировка/маркировка оборудования", "Lockout/tagout prevents the machine from starting during repairs."],
+  ["Emergency response", "Реагирование на ЧС", "The emergency response team arrived within five minutes."],
+  ["Evacuation", "Эвакуация", "The alarm triggered an immediate evacuation of the building."],
+  ["Fire safety", "Пожарная безопасность", "Fire safety training is required for all new employees."],
+  ["Explosion", "Взрыв", "The explosion was caused by a gas leak in the pipeline."],
+  ["Combustible", "Горючий", "Combustible materials should be stored far from open flames."],
+  ["Flammable", "Легковоспламеняющийся", "This liquid is highly flammable and must be sealed properly."],
+  ["Toxic substance", "Токсичное вещество", "Never inhale a toxic substance without a respirator."],
+  ["Exposure limit", "Предельно допустимый уровень", "The exposure limit for this chemical was clearly exceeded."],
+  ["Ventilation", "Вентиляция", "Proper ventilation reduces the risk of gas buildup."],
+  ["Gas leak", "Утечка газа", "A gas leak was detected near the compressor station."],
+  ["Spill", "Разлив жидкости", "Clean up the spill before someone slips on it."],
+  ["Contamination", "Загрязнение", "Contamination of the water supply was reported last week."],
+  ["Inspection", "Инспекция, осмотр", "The inspection found several safety violations on site."],
+  ["Audit", "Аудит", "An external audit reviewed our entire safety management system."],
+  ["Checklist", "Контрольный список", "Follow the checklist before starting any hot work."],
+  ["Deviation", "Отклонение", "Any deviation from the procedure must be documented."],
+  ["Non-conformance", "Несоответствие", "The auditor recorded a non-conformance in the fire log."],
+  ["Safety culture", "Культура безопасности", "Building a strong safety culture takes time and commitment."],
+  ["Behavior-based safety", "Поведенческая безопасность", "Behavior-based safety focuses on observing unsafe actions directly."],
+  ["Toolbox talk", "Инструктаж перед работой", "We start every shift with a short toolbox talk."],
+  ["Induction training", "Вводный инструктаж", "New workers must complete induction training on their first day."],
+  ["Competence", "Компетентность", "His competence in rigging was confirmed by a practical test."],
+  ["Certification", "Сертификация", "Her certification in first aid expires next month."],
+  ["Accident investigation", "Расследование несчастного случая", "The accident investigation took almost two weeks to complete."],
+  ["Lost time injury", "Травма с потерей рабочего времени", "The site recorded zero lost time injuries this year."],
+  ["First aid", "Первая помощь", "He applied first aid before the ambulance arrived."],
+  ["Occupational illness", "Профессиональное заболевание", "Long-term noise exposure can lead to occupational illness."],
+  ["Environmental impact", "Воздействие на окружающую среду", "The project's environmental impact was assessed before approval."],
+  ["Waste management", "Управление отходами", "Proper waste management prevents soil and water pollution."],
+  ["Sustainability", "Устойчивое развитие", "The company invests heavily in sustainability initiatives."],
+  ["Stakeholder", "Заинтересованная сторона", "Every stakeholder was informed about the new safety policy."],
+  ["Legislation", "Законодательство", "Local legislation now requires quarterly safety audits."],
+  ["Enforcement", "Обеспечение исполнения", "Strict enforcement of the rules reduced accidents significantly."],
+  ["Duty of care", "Обязанность проявлять заботу", "Employers have a duty of care toward their workers."],
+  ["Safety data sheet", "Паспорт безопасности вещества", "Check the safety data sheet before handling this chemical."],
+  ["Hierarchy of control", "Иерархия мер контроля", "Elimination is the top level of the hierarchy of control."],
+  ["Residual risk", "Остаточный риск", "Even after precautions, some residual risk always remains."],
+  ["Working at height", "Работа на высоте", "Working at height without a harness is strictly forbidden."],
+  ["Excavation", "Земляные работы", "The excavation was shored to prevent a collapse."],
+  ["Electrical safety", "Электробезопасность", "Electrical safety training covers lockout procedures and PPE."],
+  ["Monitoring", "Мониторинг", "Continuous gas monitoring is required inside the tank."],
+  ["Surveillance", "Надзор, слежение", "Health surveillance is offered to workers exposed to dust."],
+  ["Verification", "Верификация", "Verification of the equipment took place before the shift began."],
+  ["Validation", "Валидация", "Validation of the new procedure required three successful trials."],
+  ["Accountability", "Подотчётность", "Accountability for safety starts with site management."],
+  ["Liability", "Юридическая ответственность", "The company could face liability if safety rules are ignored."],
+  ["Whistleblowing", "Информирование о нарушениях", "The whistleblowing policy protects employees who report violations."],
+  ["Due diligence", "Должная осмотрительность", "Due diligence was carried out before signing the contract."],
+  ["Fire hazard", "Пожароопасность", "Overloaded sockets are a common fire hazard."],
+  ["Ignition source", "Источник воспламенения", "Keep any ignition source away from the fuel storage area."],
+  ["Fire triangle", "Треугольник пожара", "The fire triangle explains why removing oxygen stops a fire."],
+  ["Fire extinguisher", "Огнетушитель", "A fire extinguisher must be placed near every exit."],
+  ["Fire alarm", "Пожарная сигнализация", "The fire alarm was tested during the weekly drill."],
+  ["Smoke detector", "Датчик дыма", "Every room is equipped with a working smoke detector."],
+  ["Fire drill", "Учебная эвакуация", "The fire drill helped staff evacuate in under three minutes."],
+  ["Fire compartment", "Противопожарный отсек", "The fire compartment stopped the flames from spreading further."],
+  ["Means of escape", "Пути эвакуации", "Keep the means of escape clear at all times."],
+  ["Assembly point", "Место сбора", "Everyone gathered at the assembly point after the alarm."],
+  ["Scaffold", "Строительные леса", "The scaffold was inspected before workers climbed onto it."],
+  ["Guardrail", "Ограждение", "A missing guardrail led to a serious fall last month."],
+  ["Anchor point", "Точка анкерного крепления", "Always clip your harness to a certified anchor point."],
+  ["Harness", "Страховочная привязь", "Wear your harness whenever you work above two meters."],
+  ["Fall arrest system", "Система удержания от падения", "The fall arrest system stopped his fall instantly."],
+  ["Ladder", "Приставная лестница", "Inspect the ladder for cracks before climbing it."],
+  ["Working platform", "Рабочая площадка", "The working platform must be level and stable."],
+  ["Edge protection", "Защита краёв", "Edge protection prevents tools and workers from falling."],
+  ["Restraint system", "Система ограничения перемещения", "A restraint system stops the worker from reaching the edge."],
+  ["Rescue plan", "План спасения", "A rescue plan must be ready before confined space entry."],
 ];
 
 const STORAGE_KEY = "vocab-cards-v1";
@@ -97,10 +154,20 @@ function todayKey() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
-function makeCard(term, translation, idx, category = "HSE") {
-  return { id: `c${idx}`, term, translation, category, status: "new", interval: 0, ease: 2.3, nextReview: now(), reviewCount: 0, correctCount: 0 };
+function makeCard(term, translation, idx, category = "HSE", example = "") {
+  return { id: `c${idx}`, term, translation, category, example, status: "new", interval: 0, ease: 2.3, nextReview: now(), reviewCount: 0, correctCount: 0 };
 }
 function normalize(s) { return s.trim().toLowerCase().replace(/ё/g, "е").replace(/[.,!?;:]/g, ""); }
+function speak(text) {
+  try {
+    if (!window.speechSynthesis || !text) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "en-US";
+    utter.rate = 0.95;
+    window.speechSynthesis.speak(utter);
+  } catch (e) { console.error("speech failed", e); }
+}
 
 /* ---------- Storage: real browser localStorage (persists reliably, this is a standalone site) ---------- */
 function loadCards() {
@@ -108,10 +175,10 @@ function loadCards() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      return parsed.map((c) => ({ category: "HSE", status: "new", ...c }));
+      return parsed.map((c) => ({ category: "HSE", status: "new", example: "", ...c }));
     }
   } catch (e) { console.error("load failed", e); }
-  return SEED_WORDS.map(([t, r], i) => makeCard(t, r, i));
+  return SEED_WORDS.map(([t, r, ex], i) => makeCard(t, r, i, "HSE", ex));
 }
 function saveCards(cards) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cards)); return true; }
@@ -150,6 +217,7 @@ const Icon = {
   search: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20l-4.5-4.5" strokeLinecap="round" /></svg>,
   upload: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" strokeLinecap="round" strokeLinejoin="round" /></svg>,
   warning: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a1.8 1.8 0 0 0 1.6 2.7h17.2a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+  speaker: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M4 9v6h4l5 4V5L8 9H4Z" strokeLinejoin="round" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 5.5a9 9 0 0 1 0 13" strokeLinecap="round" /></svg>,
 };
 
 function Placard({ children, tone = "default", className = "", style = {} }) {
@@ -204,8 +272,17 @@ function ActivityStrip({ log }) {
   );
 }
 
-function SessionPicker({ title, deckSize, onPick, onCancel }) {
+function SessionPicker({ title, deckSize, onPick, onCancel, showOptions, direction, onDirection, answerMode, onAnswerMode }) {
   const options = SIZE_OPTIONS.filter((n) => n < deckSize);
+  const dirOptions = [
+    { id: "forward", label: "EN → RU" },
+    { id: "reverse", label: "RU → EN" },
+    { id: "mixed", label: "Вперемешку" },
+  ];
+  const modeOptions = [
+    { id: "flip", label: "Переворот" },
+    { id: "type", label: "Написать самому" },
+  ];
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" style={{ background: "rgba(0,0,0,0.55)" }} onClick={onCancel}>
       <div className="w-full max-w-md" onClick={(e) => e.stopPropagation()}>
@@ -214,6 +291,34 @@ function SessionPicker({ title, deckSize, onPick, onCancel }) {
             <div className="text-[10px] tracking-[0.2em] uppercase mb-1" style={{ color: C.textMuted }}>{title}</div>
             <div className="font-oswald text-lg" style={{ color: C.text }}>Сколько слов пройти?</div>
           </div>
+
+          {showOptions && (
+            <>
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: C.textMuted }}>Направление</span>
+                <div className="grid grid-cols-3 gap-2">
+                  {dirOptions.map((o) => (
+                    <button key={o.id} onClick={() => onDirection(o.id)} className="rounded-sm py-2 text-xs font-medium border"
+                      style={{ borderColor: direction === o.id ? C.accent : C.border, color: direction === o.id ? C.accent : C.textMuted, background: direction === o.id ? C.accentDim : "transparent" }}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: C.textMuted }}>Ответ</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {modeOptions.map((o) => (
+                    <button key={o.id} onClick={() => onAnswerMode(o.id)} className="rounded-sm py-2 text-xs font-medium border"
+                      style={{ borderColor: answerMode === o.id ? C.accent : C.border, color: answerMode === o.id ? C.accent : C.textMuted, background: answerMode === o.id ? C.accentDim : "transparent" }}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
           <div className="grid grid-cols-2 gap-2.5">
             {options.map((n) => (
               <button key={n} onClick={() => onPick(n)} className="rounded-sm py-3 text-sm font-medium border" style={{ borderColor: C.border, color: C.text }}>{n} слов</button>
@@ -357,13 +462,23 @@ function Training({ cards, allCards, onFinish, onAnswer }) {
         </div>
       )}
       {revealed && (
-        <div className="flex items-center justify-between mt-2">
-          <span className="flex items-center gap-1.5 text-sm font-medium" style={{ color: wasCorrect ? C.success : C.danger }}>
-            {wasCorrect ? <Icon.check className="w-4 h-4" /> : <Icon.x className="w-4 h-4" />} {wasCorrect ? "Верно" : "Неверно"}
-          </span>
-          <button onClick={next} className="font-oswald tracking-wide px-6 py-2.5 rounded-sm flex items-center gap-1.5" style={{ background: C.accent, color: C.bg }}>
-            {idx + 1 >= total ? "ФИНИШ" : "ДАЛЬШЕ"} <Icon.arrow className="w-4 h-4" />
-          </button>
+        <div className="flex flex-col gap-2 mt-2">
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-sm font-medium" style={{ color: wasCorrect ? C.success : C.danger }}>
+              {wasCorrect ? <Icon.check className="w-4 h-4" /> : <Icon.x className="w-4 h-4" />} {wasCorrect ? "Верно" : "Неверно"}
+            </span>
+            <button onClick={next} className="font-oswald tracking-wide px-6 py-2.5 rounded-sm flex items-center gap-1.5" style={{ background: C.accent, color: C.bg }}>
+              {idx + 1 >= total ? "ФИНИШ" : "ДАЛЬШЕ"} <Icon.arrow className="w-4 h-4" />
+            </button>
+          </div>
+          {question.card.example && (
+            <div className="flex items-start gap-2">
+              <button onClick={() => speak(question.card.term)} style={{ color: C.accent }} className="mt-0.5 shrink-0">
+                <Icon.speaker className="w-4 h-4" />
+              </button>
+              <span className="text-xs italic leading-snug" style={{ color: C.textMuted }}>{question.card.example}</span>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -419,33 +534,62 @@ function SwipeCard({ card, dir, onDecide, flipped, onFlip }) {
   );
 }
 
-function Cards({ cards, onDone, onDecide, onUndo }) {
-  const [order] = useState(() => shuffle(cards).map((c) => ({ ...c, _dir: Math.random() < 0.5 ? "forward" : "reverse" })));
+function Cards({ cards, onDone, onDecide, onUndo, direction = "mixed", answerMode = "flip" }) {
+  const [order] = useState(() =>
+    shuffle(cards).map((c) => ({ ...c, _dir: direction === "mixed" ? (Math.random() < 0.5 ? "forward" : "reverse") : direction }))
+  );
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [tally, setTally] = useState({ known: 0, learning: 0 });
   const [history, setHistory] = useState([]);
+  const [typed, setTyped] = useState("");
+  const [revealed, setRevealed] = useState(false);
+  const [lastCorrect, setLastCorrect] = useState(null);
+  const tallyRef = useRef({ known: 0, learning: 0 });
   const total = order.length;
 
   if (total === 0) {
-    return <div className="flex flex-col items-center px-6 pt-16 gap-4 text-center"><span className="text-sm" style={{ color: C.textMuted }}>Тут пока пусто</span><button onClick={() => onDone(tally)} className="text-sm" style={{ color: C.accent }}>Назад</button></div>;
+    return <div className="flex flex-col items-center px-6 pt-16 gap-4 text-center"><span className="text-sm" style={{ color: C.textMuted }}>Тут пока пусто</span><button onClick={() => onDone(tallyRef.current)} className="text-sm" style={{ color: C.accent }}>Назад</button></div>;
   }
   const card = order[idx];
-  const decide = (status) => {
+  const forward = card._dir === "forward";
+  const frontText = forward ? card.term : card.translation;
+  const answerText = forward ? card.translation : card.term;
+
+  const resetCardState = () => { setFlipped(false); setTyped(""); setRevealed(false); setLastCorrect(null); };
+
+  const recordOnly = (status) => {
     const prevStatus = card.status;
     onDecide(card, status);
     setHistory((h) => [...h, { index: idx, card, chosenStatus: status, prevStatus }]);
-    const newTally = { ...tally, [status]: tally[status] + 1 };
-    setTally(newTally); setFlipped(false);
-    if (idx + 1 >= total) onDone(newTally); else setIdx(idx + 1);
+    tallyRef.current = { ...tallyRef.current, [status]: tallyRef.current[status] + 1 };
+    setTally(tallyRef.current);
   };
+
+  const goNext = () => {
+    resetCardState();
+    if (idx + 1 >= total) onDone(tallyRef.current); else setIdx(idx + 1);
+  };
+
+  const decide = (status) => { recordOnly(status); goNext(); };
+
+  const submitTyped = () => {
+    if (revealed || !typed.trim()) return;
+    const correct = normalize(typed) === normalize(answerText);
+    recordOnly(correct ? "known" : "learning");
+    setLastCorrect(correct);
+    setRevealed(true);
+  };
+
   const undo = () => {
     if (history.length === 0) return;
     const last = history[history.length - 1];
     setHistory((h) => h.slice(0, -1));
     onUndo(last.card, last.prevStatus, last.chosenStatus);
-    setTally((t) => ({ ...t, [last.chosenStatus]: Math.max(0, t[last.chosenStatus] - 1) }));
-    setIdx(last.index); setFlipped(false);
+    tallyRef.current = { ...tallyRef.current, [last.chosenStatus]: Math.max(0, tallyRef.current[last.chosenStatus] - 1) };
+    setTally(tallyRef.current);
+    setIdx(last.index);
+    resetCardState();
   };
 
   return (
@@ -457,12 +601,76 @@ function Cards({ cards, onDone, onDecide, onUndo }) {
         <span className="font-mono text-xs tabular-nums" style={{ color: C.textMuted }}>{idx + 1}/{total}</span>
       </div>
       {history.length > 0 && <button onClick={undo} className="self-end -mt-2 text-xs flex items-center gap-1" style={{ color: C.textMuted }}><Icon.undo className="w-3.5 h-3.5" /> Отменить последний</button>}
-      <SwipeCard card={card} dir={card._dir} flipped={flipped} onFlip={() => setFlipped((f) => !f)} onDecide={decide} />
-      <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => decide("learning")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.danger, color: C.danger }}><Icon.x className="w-4 h-4" /> Ещё учу</button>
-        <button onClick={() => decide("known")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.success, color: C.success }}><Icon.check className="w-4 h-4" /> Знаю</button>
-      </div>
-      <span className="text-center text-[11px]" style={{ color: C.textMuted }}>Свайп влево — ещё учу · свайп вправо — знаю</span>
+
+      {answerMode === "flip" ? (
+        <>
+          <SwipeCard card={card} dir={card._dir} flipped={flipped} onFlip={() => setFlipped((f) => !f)} onDecide={decide} />
+          {(flipped || forward) && (
+            <div className="flex flex-col items-center gap-1.5 -mt-2">
+              <button onClick={() => speak(card.term)} className="flex items-center gap-1.5 text-sm" style={{ color: C.accent }}>
+                <Icon.speaker className="w-4 h-4" /> Прослушать
+              </button>
+              {card.example && <span className="text-xs italic text-center leading-snug px-4" style={{ color: C.textMuted }}>{card.example}</span>}
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => decide("learning")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.danger, color: C.danger }}><Icon.x className="w-4 h-4" /> Ещё учу</button>
+            <button onClick={() => decide("known")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.success, color: C.success }}><Icon.check className="w-4 h-4" /> Знаю</button>
+          </div>
+          <span className="text-center text-[11px]" style={{ color: C.textMuted }}>Свайп влево — ещё учу · свайп вправо — знаю</span>
+        </>
+      ) : (
+        <>
+          <Placard className="px-6 py-10 flex flex-col items-center text-center gap-3 min-h-[160px] justify-center">
+            <span className="text-[10px] tracking-[0.2em] uppercase" style={{ color: C.textMuted }}>{forward ? "EN → RU" : "RU → EN"}</span>
+            <div className="flex items-center gap-2">
+              <span className="font-oswald text-2xl leading-snug" style={{ color: C.text }}>{frontText}</span>
+              {forward && (
+                <button onClick={() => speak(card.term)} style={{ color: C.accent }}>
+                  <Icon.speaker className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+            {forward && card.example && (
+              <span className="text-xs italic leading-snug" style={{ color: C.textMuted }}>{card.example}</span>
+            )}
+          </Placard>
+          <div className="flex flex-col gap-3">
+            <input
+              value={typed} onChange={(e) => setTyped(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && submitTyped()}
+              disabled={revealed} placeholder="Напиши перевод..." autoFocus
+              className="rounded-sm px-4 py-3 outline-none text-sm border"
+              style={{ background: C.surface, color: C.text, borderColor: revealed ? (lastCorrect ? C.success : C.danger) : C.border }}
+            />
+            {revealed && !lastCorrect && (
+              <div className="text-sm" style={{ color: C.textMuted }}>Правильный ответ: <span style={{ color: C.success }}>{answerText}</span></div>
+            )}
+            {!revealed ? (
+              <button onClick={submitTyped} className="rounded-sm py-3 text-sm" style={{ background: C.surfaceAlt, color: C.text }}>Проверить</button>
+            ) : (
+              <>
+                <div className="flex items-center justify-between mt-1">
+                  <span className="flex items-center gap-1.5 text-sm font-medium" style={{ color: lastCorrect ? C.success : C.danger }}>
+                    {lastCorrect ? <Icon.check className="w-4 h-4" /> : <Icon.x className="w-4 h-4" />} {lastCorrect ? "Верно" : "Неверно"}
+                  </span>
+                  <button onClick={goNext} className="font-oswald tracking-wide px-6 py-2.5 rounded-sm flex items-center gap-1.5" style={{ background: C.accent, color: C.bg }}>
+                    {idx + 1 >= total ? "ФИНИШ" : "ДАЛЬШЕ"} <Icon.arrow className="w-4 h-4" />
+                  </button>
+                </div>
+                {!forward && card.example && (
+                  <div className="flex items-start gap-2">
+                    <button onClick={() => speak(card.term)} style={{ color: C.accent }} className="mt-0.5 shrink-0">
+                      <Icon.speaker className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs italic leading-snug" style={{ color: C.textMuted }}>{card.example}</span>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -495,7 +703,7 @@ function BulkImport({ onImport }) {
     const parsed = [];
     lines.forEach((line) => {
       const parts = line.split(";").map((p) => p.trim());
-      if (parts[0] && parts[1]) parsed.push({ term: parts[0], translation: parts[1], category: parts[2] || "HSE" });
+      if (parts[0] && parts[1]) parsed.push({ term: parts[0], translation: parts[1], category: parts[2] || "HSE", example: parts[3] || "" });
     });
     if (parsed.length > 0) onImport(parsed);
     setMsg(`Добавлено слов: ${parsed.length} из ${lines.length} строк`);
@@ -509,7 +717,7 @@ function BulkImport({ onImport }) {
       </button>
       {open && (
         <div className="flex flex-col gap-2 mt-1">
-          <span className="text-xs" style={{ color: C.textMuted }}>По одной строке: термин;перевод;категория (категория необязательна)</span>
+          <span className="text-xs" style={{ color: C.textMuted }}>По одной строке: термин;перевод;категория;пример (категория и пример необязательны)</span>
           <textarea value={text} onChange={(e) => setText(e.target.value)} rows={5} placeholder={"Hazard;Опасность;HSE\nDeadline;Крайний срок;Общие"}
             className="rounded-sm px-3 py-2 text-sm outline-none border font-mono" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
           <button onClick={doImport} className="rounded-sm py-2 text-sm" style={{ background: C.accent, color: C.bg }}>Импортировать</button>
@@ -524,16 +732,18 @@ function WordList({ cards, onBack, onAdd, onUpdate, onDelete, onBulkAdd, initial
   const [term, setTerm] = useState("");
   const [translation, setTranslation] = useState("");
   const [category, setCategory] = useState("HSE");
+  const [example, setExample] = useState("");
   const [filter, setFilter] = useState(initialFilter);
   const [query, setQuery] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editTerm, setEditTerm] = useState("");
   const [editTranslation, setEditTranslation] = useState("");
   const [editCategory, setEditCategory] = useState("HSE");
+  const [editExample, setEditExample] = useState("");
 
-  const submit = () => { if (!term.trim() || !translation.trim()) return; onAdd(term.trim(), translation.trim(), category); setTerm(""); setTranslation(""); };
-  const startEdit = (c) => { setEditingId(c.id); setEditTerm(c.term); setEditTranslation(c.translation); setEditCategory(c.category || "HSE"); };
-  const saveEdit = (id) => { onUpdate(id, { term: editTerm.trim(), translation: editTranslation.trim(), category: editCategory }); setEditingId(null); };
+  const submit = () => { if (!term.trim() || !translation.trim()) return; onAdd(term.trim(), translation.trim(), category, example.trim()); setTerm(""); setTranslation(""); setExample(""); };
+  const startEdit = (c) => { setEditingId(c.id); setEditTerm(c.term); setEditTranslation(c.translation); setEditCategory(c.category || "HSE"); setEditExample(c.example || ""); };
+  const saveEdit = (id) => { onUpdate(id, { term: editTerm.trim(), translation: editTranslation.trim(), category: editCategory, example: editExample.trim() }); setEditingId(null); };
 
   const filtered = cards.filter((c) => {
     if (filter === "learning" && c.status !== "learning") return false;
@@ -563,6 +773,7 @@ function WordList({ cards, onBack, onAdd, onUpdate, onDelete, onBulkAdd, initial
       <Placard className="px-4 py-4 flex flex-col gap-2">
         <input value={term} onChange={(e) => setTerm(e.target.value)} placeholder="Термин (EN)" className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
         <input value={translation} onChange={(e) => setTranslation(e.target.value)} placeholder="Перевод (RU)" className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
+        <input value={example} onChange={(e) => setExample(e.target.value)} placeholder="Пример предложения (необязательно)" className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
         <select value={category} onChange={(e) => setCategory(e.target.value)} className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }}>
           <option value="HSE">HSE</option><option value="Общие">Общие</option>
         </select>
@@ -577,6 +788,7 @@ function WordList({ cards, onBack, onAdd, onUpdate, onDelete, onBulkAdd, initial
               <div className="flex flex-col gap-2">
                 <input value={editTerm} onChange={(e) => setEditTerm(e.target.value)} className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
                 <input value={editTranslation} onChange={(e) => setEditTranslation(e.target.value)} className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
+                <input value={editExample} onChange={(e) => setEditExample(e.target.value)} placeholder="Пример предложения" className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }} />
                 <select value={editCategory} onChange={(e) => setEditCategory(e.target.value)} className="rounded-sm px-3 py-2 text-sm outline-none border" style={{ background: C.bg, borderColor: C.border, color: C.text }}>
                   <option value="HSE">HSE</option><option value="Общие">Общие</option>
                 </select>
@@ -592,6 +804,7 @@ function WordList({ cards, onBack, onAdd, onUpdate, onDelete, onBulkAdd, initial
                   <div className="text-sm truncate" style={{ color: C.text }}>{c.term}</div>
                   <div className="text-xs truncate" style={{ color: C.textMuted }}>{c.translation}</div>
                 </div>
+                <button onClick={() => speak(c.term)} style={{ color: C.accent }}><Icon.speaker className="w-4 h-4" /></button>
                 <StatusTag status={c.status} />
                 <button onClick={() => startEdit(c)} style={{ color: C.textMuted }}><Icon.pencil className="w-4 h-4" /></button>
               </div>
@@ -613,6 +826,8 @@ function App() {
   const [listFilter, setListFilter] = useState("all");
   const [sessionDeck, setSessionDeck] = useState([]);
   const [picker, setPicker] = useState(null);
+  const [direction, setDirection] = useState("mixed");
+  const [answerMode, setAnswerMode] = useState("flip");
 
   const persist = useCallback((updated) => { setCards(updated); saveCards(updated); }, []);
   const recordReview = useCallback((correct) => {
@@ -675,8 +890,8 @@ function App() {
     setPicker(null);
   };
 
-  const addWord = (term, translation, category) => persist([...cards, makeCard(term, translation, `${Date.now()}`, category)]);
-  const addWords = (list) => { const base = Date.now(); persist([...cards, ...list.map((w, i) => makeCard(w.term, w.translation, `${base}_${i}`, w.category))]); };
+  const addWord = (term, translation, category, example) => persist([...cards, makeCard(term, translation, `${Date.now()}`, category, example)]);
+  const addWords = (list) => { const base = Date.now(); persist([...cards, ...list.map((w, i) => makeCard(w.term, w.translation, `${base}_${i}`, w.category, w.example || ""))]); };
   const updateWord = (id, fields) => persist(cards.map((c) => (c.id === id ? { ...c, ...fields } : c)));
   const deleteWord = (id) => persist(cards.filter((c) => c.id !== id));
 
@@ -689,11 +904,23 @@ function App() {
         {screen === "home" && <Home cards={cards} log={log} storageOk={storageOk} onStart={() => openPicker("marathon")} onCards={() => openPicker("cards")} onLearning={() => openPicker("learning")} onList={() => { setListFilter("all"); setScreen("list"); }} />}
         {screen === "training" && <Training cards={sessionDeck} allCards={cards} onAnswer={handleAnswer} onFinish={() => setScreen("results")} />}
         {screen === "results" && sessionStats && <Results stats={sessionStats} onHome={() => setScreen("home")} />}
-        {screen === "cards" && <Cards cards={sessionDeck} onDecide={handleSwipeDecide} onUndo={handleUndo} onDone={(tally) => { setCardsTally(tally); setScreen("cardsResults"); }} />}
+        {screen === "cards" && <Cards cards={sessionDeck} direction={direction} answerMode={answerMode} onDecide={handleSwipeDecide} onUndo={handleUndo} onDone={(tally) => { setCardsTally(tally); setScreen("cardsResults"); }} />}
         {screen === "cardsResults" && cardsTally && <CardsResults tally={cardsTally} onHome={() => setScreen("home")} />}
         {screen === "list" && <WordList cards={cards} onBack={() => setScreen("home")} onAdd={addWord} onUpdate={updateWord} onDelete={deleteWord} onBulkAdd={addWords} initialFilter={listFilter} />}
       </div>
-      {picker && pickerDeckSize > 0 && <SessionPicker title={pickerTitle} deckSize={pickerDeckSize} onPick={startSession} onCancel={() => setPicker(null)} />}
+      {picker && pickerDeckSize > 0 && (
+        <SessionPicker
+          title={pickerTitle}
+          deckSize={pickerDeckSize}
+          onPick={startSession}
+          onCancel={() => setPicker(null)}
+          showOptions={picker === "cards" || picker === "learning"}
+          direction={direction}
+          onDirection={setDirection}
+          answerMode={answerMode}
+          onAnswerMode={setAnswerMode}
+        />
+      )}
     </div>
   );
 }
