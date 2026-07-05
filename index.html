@@ -143,6 +143,31 @@ const SEED_WORDS = [
   ["Rescue plan", "План спасения", "A rescue plan must be ready before confined space entry."],
 ];
 
+const HIERARCHY_LEVELS = {
+  elimination:    { en: "Elimination",           ru: "Устранение" },
+  substitution:   { en: "Substitution",          ru: "Замена" },
+  engineering:    { en: "Engineering controls",  ru: "Технические меры" },
+  administrative: { en: "Administrative controls", ru: "Организационные меры" },
+  ppe:            { en: "PPE",                   ru: "СИЗ" },
+};
+const HIERARCHY_CASES = [
+  { scenario: "Workers keep tripping over cables lying across the walkway.", ideal: "Remove the need for the cables altogether — reroute power overhead or use wireless equipment.", level: "elimination" },
+  { scenario: "A noisy compressor causes hearing risk in the workshop.", ideal: "Redesign the process so the compressor is no longer needed on site at all.", level: "elimination" },
+  { scenario: "Manual lifting of heavy drums causes back injuries.", ideal: "Redesign the process so the drums never need to be lifted manually.", level: "elimination" },
+  { scenario: "A cleaning solvent gives off toxic fumes.", ideal: "Replace it with a non-toxic, water-based cleaning agent.", level: "substitution" },
+  { scenario: "Workers use a highly flammable adhesive.", ideal: "Substitute it with a non-flammable alternative adhesive.", level: "substitution" },
+  { scenario: "A diesel generator produces harmful exhaust indoors.", ideal: "Replace it with an electric generator or battery power.", level: "substitution" },
+  { scenario: "Dust from grinding metal spreads through the workshop.", ideal: "Install local exhaust ventilation at the grinding station.", level: "engineering" },
+  { scenario: "Workers can accidentally reach into a moving machine part.", ideal: "Install a physical guard around the moving parts.", level: "engineering" },
+  { scenario: "Excessive heat near a furnace causes discomfort and risk.", ideal: "Install insulation or a heat shield barrier.", level: "engineering" },
+  { scenario: "New workers sometimes skip safety checks under time pressure.", ideal: "Introduce a mandatory checklist and supervisor sign-off before starting work.", level: "administrative" },
+  { scenario: "Workers stay too long in a high-noise area.", ideal: "Rotate shifts to limit each worker's exposure time.", level: "administrative" },
+  { scenario: "Confusion on site about who does what during an emergency.", ideal: "Create and train staff on a clear emergency response procedure.", level: "administrative" },
+  { scenario: "Welding produces sparks that can burn exposed skin.", ideal: "Provide flame-resistant gloves and a welding shield.", level: "ppe" },
+  { scenario: "Dust in the air can be inhaled during short-term tasks.", ideal: "Provide a properly fitted respirator mask.", level: "ppe" },
+  { scenario: "There is a risk of falling debris on a construction site.", ideal: "Provide hard hats for everyone entering the area.", level: "ppe" },
+];
+
 const STORAGE_KEY = "vocab-cards-v1";
 const LOG_KEY = "vocab-daily-log-v1";
 const now = () => Date.now();
@@ -218,6 +243,7 @@ const Icon = {
   upload: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" strokeLinecap="round" strokeLinejoin="round" /></svg>,
   warning: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a1.8 1.8 0 0 0 1.6 2.7h17.2a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z" strokeLinecap="round" strokeLinejoin="round" /></svg>,
   speaker: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M4 9v6h4l5 4V5L8 9H4Z" strokeLinejoin="round" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 5.5a9 9 0 0 1 0 13" strokeLinecap="round" /></svg>,
+  steps: (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M3 20h4v-4h4v-4h4V8h4V4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
 };
 
 function Placard({ children, tone = "default", className = "", style = {} }) {
@@ -332,7 +358,7 @@ function SessionPicker({ title, deckSize, onPick, onCancel, showOptions, directi
   );
 }
 
-function Home({ cards, log, storageOk, onStart, onCards, onList, onLearning }) {
+function Home({ cards, log, storageOk, onStart, onCards, onList, onLearning, onHierarchy }) {
   const due = cards.filter((c) => c.nextReview <= now()).length;
   const known = cards.filter((c) => c.status === "known").length;
   const learning = cards.filter((c) => c.status === "learning").length;
@@ -366,6 +392,9 @@ function Home({ cards, log, storageOk, onStart, onCards, onList, onLearning }) {
         </button>
         <button onClick={onCards} className="w-full font-oswald text-lg tracking-wide py-4 rounded-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform border" style={{ borderColor: C.accent, color: C.accent, background: "transparent" }}>
           <Icon.layers className="w-5 h-5" /> КАРТОЧКИ
+        </button>
+        <button onClick={onHierarchy} className="w-full font-oswald text-base tracking-wide py-3.5 rounded-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform border" style={{ borderColor: C.border, color: C.textMuted, background: "transparent" }}>
+          <Icon.steps className="w-4 h-4" /> HIERARCHY OF CONTROL
         </button>
       </div>
       {learning > 0 && (
@@ -688,6 +717,72 @@ function CardsResults({ tally, onHome }) {
   );
 }
 
+function HierarchyTrainer({ onDone, onAnswer }) {
+  const [order] = useState(() => shuffle(HIERARCHY_CASES));
+  const [idx, setIdx] = useState(0);
+  const [answer, setAnswer] = useState("");
+  const [revealed, setRevealed] = useState(false);
+  const tallyRef = useRef({ known: 0, learning: 0 });
+  const total = order.length;
+  const item = order[idx];
+  const level = HIERARCHY_LEVELS[item.level];
+
+  const reveal = () => setRevealed(true);
+  const selfAssess = (status) => {
+    tallyRef.current = { ...tallyRef.current, [status]: tallyRef.current[status] + 1 };
+    onAnswer(status === "known");
+    if (idx + 1 >= total) { onDone(tallyRef.current); }
+    else { setIdx(idx + 1); setAnswer(""); setRevealed(false); }
+  };
+
+  return (
+    <div className="flex flex-col px-6 pt-8 pb-8 gap-6 min-h-[520px]">
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: C.surfaceAlt }}>
+          <div className="h-full transition-all duration-500" style={{ width: `${(idx / total) * 100}%`, background: C.accent }} />
+        </div>
+        <span className="font-mono text-xs tabular-nums" style={{ color: C.textMuted }}>{idx + 1}/{total}</span>
+      </div>
+      <Placard className="px-6 py-8 flex flex-col gap-3">
+        <span className="text-[10px] tracking-[0.2em] uppercase" style={{ color: C.textMuted }}>Кейс</span>
+        <span className="text-base leading-snug" style={{ color: C.text }}>{item.scenario}</span>
+      </Placard>
+      {!revealed ? (
+        <div className="flex flex-col gap-3">
+          <textarea value={answer} onChange={(e) => setAnswer(e.target.value)} rows={4} placeholder="Как бы ты решил эту ситуацию? Пиши своими словами..."
+            className="rounded-sm px-4 py-3 outline-none text-sm border" style={{ background: C.surface, color: C.text, borderColor: C.border }} />
+          <button onClick={reveal} className="rounded-sm py-3 text-sm" style={{ background: C.surfaceAlt, color: C.text }}>Показать разбор</button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          <Placard tone="success" className="px-5 py-4 flex flex-col gap-2">
+            <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: C.textMuted }}>Эталонный подход</span>
+            <span className="text-sm leading-snug" style={{ color: C.text }}>{item.ideal}</span>
+            <span className="font-mono text-xs tracking-wide" style={{ color: C.success }}>Уровень: {level.en} ({level.ru})</span>
+          </Placard>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => selfAssess("learning")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.danger, color: C.danger }}><Icon.x className="w-4 h-4" /> Я ошибся</button>
+            <button onClick={() => selfAssess("known")} className="rounded-sm py-4 flex items-center justify-center gap-2 text-sm font-medium border" style={{ borderColor: C.success, color: C.success }}><Icon.check className="w-4 h-4" /> Я был прав</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function HierarchyResults({ tally, onHome }) {
+  return (
+    <div className="flex flex-col items-center px-6 pt-14 pb-8 gap-8">
+      <div className="text-[11px] tracking-[0.25em] uppercase" style={{ color: C.textMuted }}>Кейсы пройдены</div>
+      <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
+        <Placard tone="success" className="px-4 py-3"><div className="font-mono text-2xl tabular-nums" style={{ color: C.success }}>{tally.known}</div><div className="text-[10px] tracking-[0.1em] uppercase mt-0.5" style={{ color: C.textMuted }}>решил верно</div></Placard>
+        <Placard tone="danger" className="px-4 py-3"><div className="font-mono text-2xl tabular-nums" style={{ color: C.danger }}>{tally.learning}</div><div className="text-[10px] tracking-[0.1em] uppercase mt-0.5" style={{ color: C.textMuted }}>ошибся</div></Placard>
+      </div>
+      <button onClick={onHome} className="w-full max-w-sm font-oswald text-lg tracking-wide py-4 rounded-sm" style={{ background: C.accent, color: C.bg }}>НА ГЛАВНУЮ</button>
+    </div>
+  );
+}
+
 function StatusTag({ status }) {
   const map = { known: { color: C.success, label: "знаю" }, learning: { color: C.danger, label: "учу" }, new: { color: C.textMuted, label: "новое" } };
   const s = map[status] || map.new;
@@ -828,6 +923,7 @@ function App() {
   const [picker, setPicker] = useState(null);
   const [direction, setDirection] = useState("mixed");
   const [answerMode, setAnswerMode] = useState("flip");
+  const [hierarchyTally, setHierarchyTally] = useState(null);
 
   const persist = useCallback((updated) => { setCards(updated); saveCards(updated); }, []);
   const recordReview = useCallback((correct) => {
@@ -901,11 +997,13 @@ function App() {
   return (
     <div className="min-h-screen" style={{ background: C.bg }}>
       <div className="max-w-md mx-auto">
-        {screen === "home" && <Home cards={cards} log={log} storageOk={storageOk} onStart={() => openPicker("marathon")} onCards={() => openPicker("cards")} onLearning={() => openPicker("learning")} onList={() => { setListFilter("all"); setScreen("list"); }} />}
+        {screen === "home" && <Home cards={cards} log={log} storageOk={storageOk} onStart={() => openPicker("marathon")} onCards={() => openPicker("cards")} onLearning={() => openPicker("learning")} onList={() => { setListFilter("all"); setScreen("list"); }} onHierarchy={() => setScreen("hierarchy")} />}
         {screen === "training" && <Training cards={sessionDeck} allCards={cards} onAnswer={handleAnswer} onFinish={() => setScreen("results")} />}
         {screen === "results" && sessionStats && <Results stats={sessionStats} onHome={() => setScreen("home")} />}
         {screen === "cards" && <Cards cards={sessionDeck} direction={direction} answerMode={answerMode} onDecide={handleSwipeDecide} onUndo={handleUndo} onDone={(tally) => { setCardsTally(tally); setScreen("cardsResults"); }} />}
         {screen === "cardsResults" && cardsTally && <CardsResults tally={cardsTally} onHome={() => setScreen("home")} />}
+        {screen === "hierarchy" && <HierarchyTrainer onAnswer={recordReview} onDone={(tally) => { setHierarchyTally(tally); setScreen("hierarchyResults"); }} />}
+        {screen === "hierarchyResults" && hierarchyTally && <HierarchyResults tally={hierarchyTally} onHome={() => setScreen("home")} />}
         {screen === "list" && <WordList cards={cards} onBack={() => setScreen("home")} onAdd={addWord} onUpdate={updateWord} onDelete={deleteWord} onBulkAdd={addWords} initialFilter={listFilter} />}
       </div>
       {picker && pickerDeckSize > 0 && (
